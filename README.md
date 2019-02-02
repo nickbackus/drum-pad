@@ -7,7 +7,7 @@ A simple drum pad made with jQuery and Bootstrap
 - lets you make some funky beats
 
 ## Installation 
-Clone or download the project from its [Github Repository]](https://github.com/nickbackus/drum-pad)
+Clone or download the project from its [Github Repository](https://github.com/nickbackus/drum-pad)
 Open drum-pad.html in your favorite web browser
 
 ## To Do List
