@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drum Pad</title>
+  <link rel="stylesheet" href = "bootstrap.min.css">
+  <link rel="stylesheet" href = "drum-pad.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+
+
+<script>
+  //Description to output to screen when a button is clicked or pressed
+const soundNames = {
+  "#Q": "Guitar Chord 1",
+  "#W": "Guitar Chord 2",
+  "#E": "Guitar Chord 3",
+  "#A": "Wobble Sound",
+  "#S": "Dep Dep",
+  "#D": "Bongo",
+  "#Z": "Clap",
+  "#X": "Wub Wub",
+  "#C": "Snare"
+};
+let buttonID;
+
+//bootstrap styles for buttons and button container divs
+$(document).ready(function () {
+  $(".drum-pad").addClass("btn btn-secondary col-3 shadow animation-target");
+  $(".btn-row").addClass("row justify-content-around mx-auto my-2");
+  //this ones just lazy :(
+  $("audio").addClass("clip")
+});
+
+//takes the id of an audio element and plays the audio from the source section of it
+let playSound = (soundID) => {
+  $(soundID)[0].play();
+}
+
+//Toggles the animation for a button. The button elements will always have either the .animation-target class or the .animation-target-2 class. By removing the class that the button currently has and adding the other class it plays an animation on every click.
+let animate = (item) => {
+  if ($(item).hasClass("animation-target")){
+    $(item).removeClass("animation-target");
+    $(item).addClass("animation-target-2");
+  } else {
+    $(item).addClass("animation-target");
+    $(item).removeClass("animation-target-2");
+  }
+}
+
+//Handles clicks on the buttons
+$(".drum-pad").click(function(){
+  animate(this);
+  buttonID = "#" + $(this).children().attr('id')
+  playSound($(this).children())
+  $("#display").text(soundNames[buttonID]);
+});
+
+//Handles keypresses
+$(document).keypress(function(e) {
+  buttonID = "#" + e.key.toUpperCase();
+  if (soundNames.hasOwnProperty(buttonID)){
+    animate($(buttonID).parent())
+    playSound("#" + e.key.toUpperCase());
+    $("#display").text(soundNames[buttonID]);
+}
+});
+</script>
+
+<body class="bg-primary container-fluid">
+<div id="main-content">
+<div id="drum-machine" class="container bg-light text-center border border-secondary rounded col-sm-10 col-md-8 col-lg-6 shadow-lg">
+  <h1 class="text-dark">Drum Machine</h1>
+  <div class="row text-light mb-4">
+    <div class="col-7">
+      <div class="btn-row">
+        <button class="drum-pad" id="btn-q">Q<audio id="Q" src="sounds/guitar_chord_1.wav" /></button>
+        <button class="drum-pad" id="btn-w">W<audio id="W" src="sounds/guitar_chord_2.wav" /></button>
+        <button class="drum-pad" id="btn-e">E<audio id="E" src="sounds/guitar_chord_3.wav" /></button>
+      </div>
+      <div class="btn-row">
+        <button class="drum-pad" id="btn-a">A<audio id="A" src="sounds/wobble_sound.wav" /></button>
+        <button class="drum-pad" id="btn-s">S<audio id="S" src="sounds/dep_dep.mp3" /></button>
+        <button class="drum-pad" id="btn-d">D<audio id="D" src="sounds/bongo.wav" /></button>
+      </div>
+      <div class="btn-row">
+        <button class="drum-pad" id="btn-z">Z<audio id="Z" src="sounds/clap.wav" /></button>
+        <button class="drum-pad" id="btn-x">X<audio id="X" src="sounds/wub_wub.wav" /></button>
+        <button class="drum-pad" id="btn-c">C<audio id="C" src="sounds/snare.wav" /></button>
+      </div>
+    </div>
+    <div class="col-5">
+      <div id="display" class="bg-secondary my-2 rounded shadow-sm">Do Something!</div>
+    </div>
+  </div>
+</div>
+</div>
+<footer>
+  <div class="container bg-light text-center border border-secondary rounded col-sm-10 col-md-8 col-lg-6 shadow-lg">
+    <div>Created with jQuery & Bootstrap</div>  
+    <div>Nick Backus 2018</div>
+  </div>
+</footer>
+</body>
