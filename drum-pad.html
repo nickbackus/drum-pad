@@ -7,66 +7,6 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 
-
-
-<script>
-  //Description to output to screen when a button is clicked or pressed
-const soundNames = {
-  "#Q": "Guitar Chord 1",
-  "#W": "Guitar Chord 2",
-  "#E": "Guitar Chord 3",
-  "#A": "Wobble Sound",
-  "#S": "Dep Dep",
-  "#D": "Bongo",
-  "#Z": "Clap",
-  "#X": "Wub Wub",
-  "#C": "Snare"
-};
-let buttonID;
-
-//bootstrap styles for buttons and button container divs
-$(document).ready(function () {
-  $(".drum-pad").addClass("btn btn-secondary col-3 shadow animation-target");
-  $(".btn-row").addClass("row justify-content-around mx-auto my-2");
-  //this ones just lazy :(
-  $("audio").addClass("clip")
-});
-
-//takes the id of an audio element and plays the audio from the source section of it
-let playSound = (soundID) => {
-  $(soundID)[0].play();
-}
-
-//Toggles the animation for a button. The button elements will always have either the .animation-target class or the .animation-target-2 class. By removing the class that the button currently has and adding the other class it plays an animation on every click.
-let animate = (item) => {
-  if ($(item).hasClass("animation-target")){
-    $(item).removeClass("animation-target");
-    $(item).addClass("animation-target-2");
-  } else {
-    $(item).addClass("animation-target");
-    $(item).removeClass("animation-target-2");
-  }
-}
-
-//Handles clicks on the buttons
-$(".drum-pad").click(function(){
-  animate(this);
-  buttonID = "#" + $(this).children().attr('id')
-  playSound($(this).children())
-  $("#display").text(soundNames[buttonID]);
-});
-
-//Handles keypresses
-$(document).keypress(function(e) {
-  buttonID = "#" + e.key.toUpperCase();
-  if (soundNames.hasOwnProperty(buttonID)){
-    animate($(buttonID).parent())
-    playSound("#" + e.key.toUpperCase());
-    $("#display").text(soundNames[buttonID]);
-}
-});
-</script>
-
 <body class="bg-primary container-fluid">
 <div id="main-content">
 <div id="drum-machine" class="container bg-light text-center border border-secondary rounded col-sm-10 col-md-8 col-lg-6 shadow-lg">
@@ -102,3 +42,61 @@ $(document).keypress(function(e) {
   </div>
 </footer>
 </body>
+
+<script>
+    //Description to output to screen when a button is clicked or pressed
+  const soundNames = {
+    "#Q": "Guitar Chord 1",
+    "#W": "Guitar Chord 2",
+    "#E": "Guitar Chord 3",
+    "#A": "Wobble Sound",
+    "#S": "Dep Dep",
+    "#D": "Bongo",
+    "#Z": "Clap",
+    "#X": "Wub Wub",
+    "#C": "Snare"
+  };
+  let buttonID;
+
+  //bootstrap styles for buttons and button container divs
+  $(document).ready(function () {
+    $(".drum-pad").addClass("btn btn-secondary col-3 shadow animation-target");
+    $(".btn-row").addClass("row justify-content-around mx-auto my-2");
+    //this ones just lazy :(
+    $("audio").addClass("clip")
+  });
+
+  //takes the id of an audio element and plays the audio from the source section of it
+  let playSound = (soundID) => {
+    $(soundID)[0].play();
+  }
+
+  //Toggles the animation for a button. The button elements will always have either the .animation-target class or the .animation-target-2 class. By removing the class that the button currently has and adding the other class it plays an animation on every click.
+  let animate = (item) => {
+    if ($(item).hasClass("animation-target")){
+      $(item).removeClass("animation-target");
+      $(item).addClass("animation-target-2");
+    } else {
+      $(item).addClass("animation-target");
+      $(item).removeClass("animation-target-2");
+    }
+  }
+
+  //Handles clicks on the buttons
+  $(".drum-pad").click(function(){
+    animate(this);
+    buttonID = "#" + $(this).children().attr('id')
+    playSound($(this).children())
+    $("#display").text(soundNames[buttonID]);
+  });
+
+  //Handles keypresses
+  $(document).keypress(function(e) {
+    buttonID = "#" + e.key.toUpperCase();
+    if (soundNames.hasOwnProperty(buttonID)){
+      animate($(buttonID).parent())
+      playSound("#" + e.key.toUpperCase());
+      $("#display").text(soundNames[buttonID]);
+  }
+  });
+</script>
